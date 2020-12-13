@@ -1,0 +1,146 @@
+﻿<Window x:Class="ImageCompresser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageCompresser"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="629.6">
+
+    <Window.Resources>
+
+        <local:FileSizeConverter x:Key="SizeConverter"></local:FileSizeConverter>
+       
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="132"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ListView VirtualizingPanel.IsVirtualizing="True"  x:Name="ListviewData" Grid.Row="1" DragEnter="ListviewData_DragEnter" Drop="ListviewData_Drop" Margin="0,0,-0.8,0">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="DeleteItem" Header="Удалить элемент" Click="DeleteItem_Click">
+
+                    </MenuItem>
+
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Имя файла" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Путь к файлу" DisplayMemberBinding="{Binding FilePath}"/>
+                    <GridViewColumn Header="Размер файла" DisplayMemberBinding="{Binding FileSize,Converter={StaticResource SizeConverter}}"/>
+                    <GridViewColumn Header="Примерный размер файла после сжатия" DisplayMemberBinding="{Binding CompressedFileSize,Converter={StaticResource SizeConverter}}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" >
+                    
+                        <Setter Property="Background" Value="Bisque"></Setter>
+                        <Setter Property="Foreground" Value="Black"></Setter>
+                    
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <StackPanel Orientation="Vertical" Margin="0">
+            <StackPanel Orientation="Horizontal" Margin="0">
+
+                <Button x:Name="OpenFolder" Content="Добавить из папки" Click="OpenFolder_Click"  Margin="10,16,10,0" VerticalAlignment="Top" Background="#FFE4881E" BorderBrush="#FF909090" Height="30" Width="115" Foreground="White">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Открыть папку"/>
+
+                        </ToolTip>
+                    </Button.ToolTip>
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}" >
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+
+
+
+
+
+                </Button>
+                <Button x:Name="AddFileButton" Content="Добавить файл"   Margin="0,16,10,10" Click="AddFileButton_Click" Background="#FFFF6E00" BorderBrush="#FF909090" Width="95" Height="30" Foreground="White">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}" >
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Добавить файл"/>
+
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+                <Button x:Name="ClearList" Content="Очистить " Width="75" Margin="0,16,10,10" Click="ClearList_Click" Background="Red" BorderBrush="#FF909090" Height="30" Foreground="White">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}" >
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Очистить список"/>
+
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <Button x:Name="InfoButton" Content="Информация " Width="87" Margin="0,16,10,10"  Background="#FF00CDFF" BorderBrush="#FF909090" Height="30" VerticalAlignment="Top">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}" >
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Очистить список"/>
+
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+
+            </StackPanel>
+            <TextBlock Margin="10,0,0,0"> Степень сжатия:</TextBlock>
+            <StackPanel Orientation="Horizontal"  Margin="10">
+                <RadioButton Height="13">1</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">2</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">3</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">4</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">5</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">6</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">7</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">8</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">9</RadioButton>
+                <RadioButton Margin="10,0,0,0" Height="13" Checked="RadioButton_Checked">10</RadioButton>
+                <Button x:Name="StartCompressButton" Content="Сжать изображения" Width="132" Click="StartCompressButton_Click"  BorderBrush="#FF909090" Background="#FF89ED70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,10,0" Height="30" Foreground="Black">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+
+
+
+        </StackPanel>
+
+        <StackPanel x:Name="ProcessingPanel" Margin="0,0,-0.8,0" Grid.RowSpan="2" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" d:IsHidden="True">
+            <Label x:Name="ProcessStatusLabel" Content="" FontSize="18" d:IsHidden="True"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
